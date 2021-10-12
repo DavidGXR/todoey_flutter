@@ -1,12 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:todoey_flutter/screens/add_task_screen.dart';
+import 'package:todoey_flutter/widgets/tasks_list.dart';
 
 class TaskScreen extends StatelessWidget {
+
+  Widget buildBottomSheet(BuildContext context) {
+    return Container(
+      child: Text('Hi'),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lightBlue,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
+        onPressed: () {
+          showModalBottomSheet(
+              context: context,
+              builder: (context) => AddTaskScreen(),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)
+              ));
+        },
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,6 +64,7 @@ class TaskScreen extends StatelessWidget {
           SizedBox(height: 10.0),
           Expanded(
               child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 20.0),
                 decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -54,21 +72,8 @@ class TaskScreen extends StatelessWidget {
                     topRight: Radius.circular(10.0)
                   )
                 ),
-                child: Padding(
-                  padding: EdgeInsets.all(30.0),
-                  child: ListView(
-                    children: [
-                      Text(
-                        'Hello, david!',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16.0
-                        ),
-                      ),
+                child: TasksList(),
 
-                    ],
-                  ),
-                ),
               )
           ),
         ],
@@ -76,4 +81,4 @@ class TaskScreen extends StatelessWidget {
     );
   }
 
-}// End of class
+}
