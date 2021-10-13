@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 
 class AddTaskScreen extends StatelessWidget {
 
+  final Function didAddTask;
+  final textFieldController = TextEditingController();
+
+  AddTaskScreen({this.didAddTask});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,11 +29,13 @@ class AddTaskScreen extends StatelessWidget {
             style: TextStyle(
               color: Colors.black,
             ),
+            controller: textFieldController,
           ),
           SizedBox(height: 10.0),
           TextButton(
             onPressed: () {
-
+              didAddTask(this.textFieldController.text);
+              Navigator.pop(context);
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.lightBlueAccent)
