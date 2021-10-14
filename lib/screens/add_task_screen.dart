@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_flutter/models/task_data.dart';
+import 'package:todoey_flutter/models/task.dart';
 
 class AddTaskScreen extends StatelessWidget {
 
@@ -34,8 +37,15 @@ class AddTaskScreen extends StatelessWidget {
           SizedBox(height: 10.0),
           TextButton(
             onPressed: () {
-              didAddTask(this.textFieldController.text);
-              Navigator.pop(context);
+              if (this.textFieldController.text.isEmpty) {
+                return;
+              } else {
+                final task = Task(title: this.textFieldController.text);
+                Provider.of<TaskData>(context, listen: false).addNewTask(task);
+                Provider.of<TaskData>(context, listen: false).taskList.add(task);
+                Navigator.pop(context);
+              }
+
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.lightBlueAccent)

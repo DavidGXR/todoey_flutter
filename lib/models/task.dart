@@ -8,4 +8,5 @@ class Task {
     this.isFinished = !this.isFinished;
   }
 
+
 }// End of class

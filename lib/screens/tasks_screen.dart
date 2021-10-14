@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:todoey_flutter/models/task.dart';
+import 'package:provider/provider.dart';
 import 'package:todoey_flutter/screens/add_task_screen.dart';
 import 'package:todoey_flutter/widgets/tasks_list.dart';
+import 'package:todoey_flutter/models/task_data.dart';
 
 class TaskScreen extends StatefulWidget {
 
@@ -11,34 +12,40 @@ class TaskScreen extends StatefulWidget {
 
 class _TaskScreenState extends State<TaskScreen> {
 
-  List<Task> taskList = [
-    Task(title: "Go to office"),
-    Task(title: "Go to fix car at May Garage"),
-    Task(title: "Date with gf")
-  ];
+  // List<Task> taskList = [
+  //   Task(title: "Go to office"),
+  //   Task(title: "Go to fix car at May Garage"),
+  //   Task(title: "Date with gf")
+  // ];
 
   void didPressOnCheckBox(int index) {
     setState(() {
-      this.taskList[index].toggleDone();
+     // this.taskList[index].toggleDone();
     });
   }
 
   void didAddTask(String task) {
     setState(() {
-      this.taskList.add(Task(title: task));
+      //this.taskList.add(Task(title: task));
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
         backgroundColor: Colors.lightBlue,
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
           onPressed: () {
             showModalBottomSheet(
+              isScrollControlled: true,
                 context: context,
-                builder: (context) => AddTaskScreen(didAddTask: didAddTask),
+                builder: (context) => SingleChildScrollView(
+                    child: AddTaskScreen(didAddTask: didAddTask),
+                    padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                ),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)
                 ));
@@ -71,7 +78,7 @@ class _TaskScreenState extends State<TaskScreen> {
                     ),
                   ),
                   Text(
-                    '${this.taskList.length.toString()} tasks',
+                    '${Provider.of<TaskData>(context).taskCount} tasks',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 18.0
@@ -91,7 +98,7 @@ class _TaskScreenState extends State<TaskScreen> {
                           topRight: Radius.circular(10.0)
                       )
                   ),
-                  child: TasksList(taskList: this.taskList, didPressOnCheckBox: didPressOnCheckBox)
+                  child: TasksList()
 
                 )
             ),
