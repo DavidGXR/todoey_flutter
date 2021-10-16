@@ -42,7 +42,6 @@ class AddTaskScreen extends StatelessWidget {
               } else {
                 final task = Task(title: this.textFieldController.text);
                 Provider.of<TaskData>(context, listen: false).addNewTask(task);
-                Provider.of<TaskData>(context, listen: false).taskList.add(task);
                 Navigator.pop(context);
               }
 
