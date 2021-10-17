@@ -7,7 +7,7 @@ class TasksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TaskData>( // Consumer is
+    return Consumer<TaskData>( // Consumer is nothing but just make life easier without having to write Provider.of<TaskData>
       builder: (context, taskData, child) {
         return ListView.builder(itemBuilder: (context, index) {
           final task = taskData.taskList[index];
@@ -16,6 +16,9 @@ class TasksList extends StatelessWidget {
             isChecked: task.isFinished,
             didPressOnCheckBox: () {
               taskData.updateTask(task);
+            },
+            didLongPressOnText: () {
+              taskData.deleteTask(task);
             },
           );
         },
