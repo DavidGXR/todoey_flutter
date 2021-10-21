@@ -1,31 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:todoey_flutter/models/task_data.dart';
+import 'package:todoey_flutter/bloc/task_cubit.dart';
+import 'package:todoey_flutter/bloc/task_state.dart';
 import 'package:todoey_flutter/widgets/task_tile.dart';
 
 class TasksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<TaskData>( // Consumer is nothing but just make life easier without having to write Provider.of<TaskData>
-      builder: (context, taskData, child) {
-        return ListView.builder(itemBuilder: (context, index) {
-          final task = taskData.taskList[index];
-          return TaskTile(
+    return BlocBuilder<TaskCubit, TaskState> (
+    builder: (context, state) {
+      return ListView.builder(itemBuilder: (context, index) {
+        final task = state.taskList[index];
+        return TaskTile(
             taskTitle: task.title,
             isChecked: task.isFinished,
             didPressOnCheckBox: () {
-              taskData.updateTask(task);
+              state.updateTask(task);
             },
             didLongPressOnText: () {
-              taskData.deleteTask(task);
+              state.deleteTask(task);
             },
           );
         },
-          itemCount: taskData.taskCount,
+        itemCount: state.taskCount,
         );
-      },
-    );
+    });
+
   }
+
+
+
 } // End of class
 

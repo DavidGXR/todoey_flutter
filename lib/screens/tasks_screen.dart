@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
+import 'package:todoey_flutter/bloc/task_cubit.dart';
+import 'package:todoey_flutter/bloc/task_state.dart';
 import 'package:todoey_flutter/screens/add_task_screen.dart';
-import 'package:todoey_flutter/widgets/tasks_list.dart';
-import 'package:todoey_flutter/models/task_data.dart';
 
 class TaskScreen extends StatefulWidget {
 
@@ -77,13 +78,18 @@ class _TaskScreenState extends State<TaskScreen> {
                         fontSize: 50.0
                     ),
                   ),
-                  Text(
-                    '${Provider.of<TaskData>(context).taskCount} tasks',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18.0
-                    ),
+                  BlocBuilder<TaskCubit, TaskState> (
+                    builder: (context, state) {
+                    return Text(
+                        '${state.taskCount} tasks',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18.0
+                        ),
+                      );
+                    }
                   ),
+
                 ],
               ),
             ),
