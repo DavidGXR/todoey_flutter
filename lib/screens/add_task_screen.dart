@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todoey_flutter/models/task_data.dart';
+import 'package:todoey_flutter/bloc/task_cubit.dart';
 import 'package:todoey_flutter/models/task.dart';
 
 class AddTaskScreen extends StatelessWidget {
 
-  final Function didAddTask;
   final textFieldController = TextEditingController();
-
-  AddTaskScreen({this.didAddTask});
 
   @override
   Widget build(BuildContext context) {
@@ -41,10 +38,9 @@ class AddTaskScreen extends StatelessWidget {
                 return;
               } else {
                 final task = Task(title: this.textFieldController.text);
-                Provider.of<TaskData>(context, listen: false).addNewTask(task);
+                context.read<TaskCubit>().addNewTask(task);
                 Navigator.pop(context);
               }
-
             },
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all(Colors.lightBlueAccent)
@@ -56,7 +52,6 @@ class AddTaskScreen extends StatelessWidget {
               ),
             ) ,
           )
-
         ],
       ),
     );

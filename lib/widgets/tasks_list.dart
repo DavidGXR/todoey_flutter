@@ -17,14 +17,14 @@ class TasksList extends StatelessWidget {
             taskTitle: task.title,
             isChecked: task.isFinished,
             didPressOnCheckBox: () {
-              state.updateTask(task);
+              context.read<TaskCubit>().updateTask(index);
             },
             didLongPressOnText: () {
-              state.deleteTask(task);
+              context.read<TaskCubit>().deleteTask(index);
             },
           );
         },
-        itemCount: state.taskCount,
+        itemCount: state.taskList.length,
         );
     });
 

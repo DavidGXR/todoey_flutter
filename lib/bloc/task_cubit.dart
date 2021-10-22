@@ -4,19 +4,24 @@ import 'package:todoey_flutter/models/task.dart';
 
 class TaskCubit extends Cubit<TaskState> {
 
-  TaskCubit() : super(TaskState());
+  TaskCubit() : super(TaskState(taskList: [])); // initial state, empty list
+
+  List<Task> _taskList = [];
 
   void addNewTask(Task task) {
-    var a = state.addNewTask(task);
-
+    this._taskList.add(task);
+    emit(TaskState(taskList: _taskList));
   }
 
-  void updateTask(Task task) {
-    state.updateTask(task);
+  void updateTask(int index) {
+    this._taskList[index].toggleDone();
+    emit(TaskState(taskList: _taskList));
   }
 
-  void deleteTask(Task task) {
-    state.deleteTask(task);
+  void deleteTask(int index) {
+    this._taskList.removeAt(index);
+    emit(TaskState(taskList: _taskList));
   }
+
 
 }// End of class
