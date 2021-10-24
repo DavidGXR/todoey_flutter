@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'package:todoey_flutter/models/task.dart';
 
 class TaskState  {
