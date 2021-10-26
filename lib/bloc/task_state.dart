@@ -1,15 +1,6 @@
 import 'package:todoey_flutter/models/task.dart';
 
-abstract class TaskState {
+class TaskState {
   List<Task> taskList;
-
+  TaskState({this.taskList});
 }
-
-class AddTask extends TaskState {
-
-
-
-
-
-}// End of class
-

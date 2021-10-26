@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
-import 'package:todoey_flutter/bloc/task_cubit.dart';
+import 'package:todoey_flutter/bloc/task_bloc.dart';
+import 'package:todoey_flutter/bloc/task_event.dart';
 import 'package:todoey_flutter/bloc/task_state.dart';
 import 'package:todoey_flutter/widgets/task_tile.dart';
 
@@ -9,7 +9,7 @@ class TasksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TaskCubit, TaskState> (
+    return BlocBuilder<TaskBloc, TaskState> (
     builder: (context, state) {
       return ListView.builder(itemBuilder: (context, index) {
         final task = state.taskList[index];
@@ -17,10 +17,10 @@ class TasksList extends StatelessWidget {
             taskTitle: task.title,
             isChecked: task.isFinished,
             didPressOnCheckBox: () {
-              context.read<TaskCubit>().updateTask(index);
+              BlocProvider.of<TaskBloc>(context).add(TaskEvent(event: Event.UpdateEvent, task: task));
             },
             didLongPressOnText: () {
-              context.read<TaskCubit>().deleteTask(index);
+              BlocProvider.of<TaskBloc>(context).add(TaskEvent(event: Event.DeleteEvent, task: task));
             },
           );
         },

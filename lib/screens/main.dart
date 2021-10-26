@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todoey_flutter/bloc/task_cubit.dart';
+import 'package:todoey_flutter/bloc/task_bloc.dart';
 import 'package:todoey_flutter/screens/tasks_screen.dart';
 
 void main() {
@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return BlocProvider(
-      create: (context) => TaskCubit(),
+      create: (context) => TaskBloc(),
       child: MaterialApp(
         title: 'Flutter Demo',
         home: TaskScreen()

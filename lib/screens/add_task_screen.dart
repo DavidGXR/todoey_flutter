@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todoey_flutter/bloc/task_cubit.dart';
+import 'package:todoey_flutter/bloc/task_bloc.dart';
+import 'package:todoey_flutter/bloc/task_event.dart';
 import 'package:todoey_flutter/models/task.dart';
 
 class AddTaskScreen extends StatelessWidget {
@@ -38,7 +39,7 @@ class AddTaskScreen extends StatelessWidget {
                 return;
               } else {
                 final task = Task(title: this.textFieldController.text);
-                context.read<TaskCubit>().addNewTask(task);
+                context.read<TaskBloc>().onEvent(TaskEvent(task: task, event: Event.AddEvent));
                 Navigator.pop(context);
               }
             },

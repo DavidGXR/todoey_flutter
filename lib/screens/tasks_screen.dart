@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todoey_flutter/bloc/task_cubit.dart';
+import 'package:todoey_flutter/bloc/task_bloc.dart';
 import 'package:todoey_flutter/bloc/task_state.dart';
 import 'package:todoey_flutter/screens/add_task_screen.dart';
 import 'package:todoey_flutter/widgets/tasks_list.dart';
@@ -60,7 +60,7 @@ class _TaskScreenState extends State<TaskScreen> {
                         fontSize: 50.0
                     ),
                   ),
-                  BlocBuilder<TaskCubit, TaskState> (
+                  BlocBuilder<TaskBloc, TaskState> (
                     builder: (context, state) {
                     return Text(
                         '${state.taskList.length} tasks',
