@@ -17,9 +17,11 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     if (event.event == Event.AddEvent) {
       this._taskData.add(event.task);
       emit(TaskState(taskList: this._taskData));
+
     } else if (event.event == Event.DeleteEvent) {
       this._taskData.remove(event.task);
       emit(TaskState(taskList: this._taskData));
+
     } else {
       final updatedTask = _taskData.firstWhere((element) =>
       element == event.task,
@@ -27,6 +29,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
             return null;
           });
       updatedTask.toggleDone();
+
       emit(TaskState(taskList: this._taskData));
     }
   }
